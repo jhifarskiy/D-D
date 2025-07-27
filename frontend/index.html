@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D&D 5e Character Sheet</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="app" class="character-sheet">
+        <header class="sheet-header">
+            <div class="header-section">
+                <span class="label">ИМЯ ПЕРСОНАЖА</span>
+                <input type="text" id="characterName" class="character-name-input" value="Либериус">
+            </div>
+            <div class="header-section">
+                <span class="label">КЛАСС И УРОВЕНЬ</span>
+                <p>Волшебник 1 уровня</p>
+            </div>
+            <div class="header-section">
+                <span class="label">ПРЕДЫСТОРИЯ</span>
+                <p>Магорождённый</p>
+            </div>
+            <div class="header-section">
+                <span class="label">ИМЯ ИГРОКА</span>
+                <p>Лев Жифарский</p>
+            </div>
+            <div class="header-section">
+                <span class="label">РАСА</span>
+                <p>Полуэльф</p>
+            </div>
+            <div class="header-section">
+                <span class="label">МИРОВОЗЗРЕНИЕ</span>
+                <p>Нейтрально добрый</p>
+            </div>
+            <div class="header-section">
+                <span class="label">ОЧКИ ОПЫТА</span>
+                <p>0</p>
+            </div>
+        </header>
+
+        <main class="sheet-main">
+            <section class="abilities-section">
+                <h2>Характеристики</h2>
+                <div class="ability-score">
+                    <span class="label">СИЛА</span>
+                    <input type="number" id="strengthScore" class="score-input" value="10">
+                    <input type="text" id="strengthModifier" class="modifier-input" value="0" readonly>
+                </div>
+                <div class="ability-score">
+                    <span class="label">ЛОВКОСТЬ</span>
+                    <input type="number" id="dexterityScore" class="score-input" value="10">
+                    <input type="text" id="dexterityModifier" class="modifier-input" value="0" readonly>
+                </div>
+                <div class="ability-score">
+                    <span class="label">ТЕЛОСЛОЖЕНИЕ</span>
+                    <input type="number" id="constitutionScore" class="score-input" value="10">
+                    <input type="text" id="constitutionModifier" class="modifier-input" value="0" readonly>
+                </div>
+                <div class="ability-score">
+                    <span class="label">ИНТЕЛЛЕКТ</span>
+                    <input type="number" id="intellScore" class="score-input" value="10">
+                    <input type="text" id="intellModifier" class="modifier-input" value="0" readonly>
+                </div>
+                <div class="ability-score">
+                    <span class="label">МУДРОСТЬ</span>
+                    <input type="number" id="wisdomScore" class="score-input" value="10">
+                    <input type="text" id="wisdomModifier" class="modifier-input" value="0" readonly>
+                </div>
+                <div class="ability-score">
+                    <span class="label">ХАРИЗМА</span>
+                    <input type="number" id="charismaScore" class="score-input" value="10">
+                    <input type="text" id="charismaModifier" class="modifier-input" value="0" readonly>
+                </div>
+            </section>
+
+            <section class="combat-section">
+                <h2>Бой</h2>
+                <div class="ac-initiative-speed">
+                    <div class="combat-stat">
+                        <span class="label">КД</span>
+                        <div class="value">13</div>
+                    </div>
+                    <div class="combat-stat">
+                        <span class="label">ИНИЦИАТИВА</span>
+                        <div class="value">0</div>
+                    </div>
+                    <div class="combat-stat">
+                        <span class="label">СКОРОСТЬ</span>
+                        <div class="value">30</div>
+                    </div>
+                </div>
+                <div class="hp-section">
+                    <span class="label">Максимум хитов</span>
+                    <div class="value">8</div>
+                    <span class="label">ТЕКУЩИЕ ХИТЫ</span>
+                    <div class="value">0</div>
+                    <span class="label">ВРЕМЕННЫЕ ХИТЫ</span>
+                    <div class="value">0</div>
+                </div>
+            </section>
+
+            <section class="proficiency-bonus-section">
+                <h2>Бонус мастерства</h2>
+                <input type="number" id="proficiencyBonus" class="score-input" value="2">
+            </section>
+
+            <section class="saving-throws-section">
+                <h2>Спасброски</h2>
+                <ul>
+                    <li><input type="checkbox" id="strengthSaveProficient"> <span class="save-value" id="strengthSave">0</span> СИЛА</li>
+                    <li><input type="checkbox" id="dexteritySaveProficient"> <span class="save-value" id="dexteritySave">0</span> ЛОВКОСТЬ</li>
+                    <li><input type="checkbox" id="constitutionSaveProficient"> <span class="save-value" id="constitutionSave">0</span> ТЕЛОСЛОЖЕНИЕ</li>
+                    <li><input type="checkbox" id="intellSaveProficient"> <span class="save-value" id="intellSave">0</span> ИНТЕЛЛЕКТ</li>
+                    <li><input type="checkbox" id="wisdomSaveProficient"> <span class="save-value" id="wisdomSave">0</span> МУДРОСТЬ</li>
+                    <li><input type="checkbox" id="charismaSaveProficient"> <span class="save-value" id="charismaSave">0</span> ХАРИЗМА</li>
+                </ul>
+            </section>
+
+            <section class="skills-section">
+                <h2>Навыки</h2>
+                <ul>
+                    <li><input type="checkbox" id="acrobaticsProficient"> <span class="skill-value" id="acrobaticsSkill">0</span> Акробатика (Лов)</li>
+                    <li><input type="checkbox" id="animalHandlingProficient"> <span class="skill-value" id="animalHandlingSkill">0</span> Уход за животными (Мдр)</li>
+                    <li><input type="checkbox" id="arcanaProficient"> <span class="skill-value" id="arcanaSkill">0</span> Магия (Инт)</li>
+                    <li><input type="checkbox" id="athleticsProficient"> <span class="skill-value" id="athleticsSkill">0</span> Атлетика (Сил)</li>
+                    <li><input type="checkbox" id="deceptionProficient"> <span class="skill-value" id="deceptionSkill">0</span> Обман (Хар)</li>
+                    <li><input type="checkbox" id="historyProficient"> <span class="skill-value" id="historySkill">0</span> История (Инт)</li>
+                    <li><input type="checkbox" id="insightProficient"> <span class="skill-value" id="insightSkill">0</span> Проницательность (Мдр)</li>
+                    <li><input type="checkbox" id="intimidationProficient"> <span class="skill-value" id="intimidationSkill">0</span> Запугивание (Хар)</li>
+                    <li><input type="checkbox" id="investigationProficient"> <span class="skill-value" id="investigationSkill">0</span> Анализ (Инт)</li>
+                    <li><input type="checkbox" id="medicineProficient"> <span class="skill-value" id="medicineSkill">0</span> Медицина (Мдр)</li>
+                    <li><input type="checkbox" id="natureProficient"> <span class="skill-value" id="natureSkill">0</span> Природа (Инт)</li>
+                    <li><input type="checkbox" id="perceptionProficient"> <span class="skill-value" id="perceptionSkill">0</span> Внимательность (Мдр)</li>
+                    <li><input type="checkbox" id="performanceProficient"> <span class="skill-value" id="performanceSkill">0</span> Выступление (Хар)</li>
+                    <li><input type="checkbox" id="persuasionProficient"> <span class="skill-value" id="persuasionSkill">0</span> Убеждение (Хар)</li>
+                    <li><input type="checkbox" id="religionProficient"> <span class="skill-value" id="religionSkill">0</span> Религия (Инт)</li>
+                    <li><input type="checkbox" id="sleightOfHandProficient"> <span class="skill-value" id="sleightOfHandSkill">0</span> Ловкость рук (Лов)</li>
+                    <li><input type="checkbox" id="stealthProficient"> <span class="skill-value" id="stealthSkill">0</span> Скрытность (Лов)</li>
+                    <li><input type="checkbox" id="survivalProficient"> <span class="skill-value" id="survivalSkill">0</span> Выживание (Мдр)</li>
+                </ul>
+            </section>
+
+            <section class="features-section">
+                <h2>Умения и Особенности</h2>
+                <h3>Полуэльф:</h3>
+                <ul>
+                    <li>Тьмозрение 60 футов</li>
+                    <li>Иммунитет к очарованию, устойчивость к усыплению</li>
+                    <li>Доп. навыки: Обман, Убеждение</li>
+                </ul>
+                <h3>Волшебник:</h3>
+                <ul>
+                    <li>Книга заклинаний (6 заклинаний 1 круга, 3 чары)</li>
+                    <li>Подготовка заклинаний: 4</li>
+                    <li>Колдовство на Интеллекте</li>
+                    <li>Кость хитов: 1к6</li>
+                    <li>Магическое восстановление: Один раз в день во время короткого отдыха вы можете восстановить потраченные ячейки заклинаний.</li>
+                </ul>
+                <h3>Магорождённый (Белоснежный дракон):</h3>
+                <ul>
+                    <li>Тип урона: холод</li>
+                    <li>КД = 13 + мод. Ловкости</li>
+                    <li>Макс. хитов +1</li>
+                </ul>
+            </section>
+
+            <section class="equipment-section">
+                <h2>Снаряжение</h2>
+                <div id="equipmentList">
+                </div>
+                <button id="addEquipmentBtn">Добавить снаряжение</button>
+            </section>
+
+            <section class="spells-section">
+                <h2>Заклинания</h2>
+                <div id="spellsList">
+                </div>
+                <button id="addSpellBtn">Добавить заклинание</button>
+            </section>
+
+            <section class="map-section">
+                <h2>Карта Сражения</h2>
+                <div class="map-controls">
+                    <label for="gridSize">Размер сетки (px):</label>
+                    <input type="number" id="gridSize" value="50">
+                    <label for="mapBackground">Фон карты (URL):</label>
+                    <input type="text" id="mapBackground" placeholder="URL изображения">
+                    <button id="loadMapBackground">Загрузить фон</button>
+                    <button id="resetMap">Сбросить карту</button>
+                </div>
+                <canvas id="battleMap" width="800" height="600"></canvas>
+            </section>
+
+        </main>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

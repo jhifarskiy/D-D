@@ -1,0 +1,431 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+}
+
+.character-sheet {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 100%;
+    max-width: 900px;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    gap: 20px;
+}
+
+.sheet-header {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 10px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 15px;
+}
+
+.header-section {
+    background-color: #f9f9f9;
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+.header-section .label {
+    display: block;
+    font-size: 0.7em;
+    color: #777;
+    margin-bottom: 5px;
+}
+
+.header-section h1, .header-section p {
+    margin: 0;
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+.character-name-input {
+    width: calc(100% - 20px);
+    padding: 5px 10px;
+    margin-top: 5px;
+    font-size: 1.1em;
+    font-weight: bold;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.sheet-main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+section {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 15px;
+}
+
+section h2 {
+    margin-top: 0;
+    color: #333;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.abilities-section, .combat-section {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+}
+
+.ability-score, .combat-stat {
+    background-color: #fff;
+    border: 1px solid #eee;
+    padding: 10px;
+    text-align: center;
+}
+
+.ability-score .label, .combat-stat .label {
+    font-size: 0.8em;
+    color: #555;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.ability-score .score, .combat-stat .value {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: #000;
+}
+
+.ability-score .modifier {
+    font-size: 1.2em;
+    color: #666;
+    margin-top: 5px;
+}
+
+.score-input,
+.modifier-input {
+    width: calc(100% - 20px);
+    padding: 5px 10px;
+    margin-top: 5px;
+    font-family: 'Montserrat', sans-serif;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.score-input {
+    font-size: 1.8em;
+    font-weight: bold;
+}
+
+.modifier-input {
+    font-size: 1.2em;
+    color: #666;
+    margin-top: 5px;
+    background-color: #f0f0f0;
+}
+
+.ac-initiative-speed {
+    display: flex;
+    justify-content: space-around;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.hp-section {
+    background-color: #fff;
+    border: 1px solid #eee;
+    padding: 10px;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.hp-section .label {
+    font-size: 0.8em;
+    color: #555;
+    display: block;
+}
+
+.hp-section .value {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #000;
+    margin-bottom: 5px;
+}
+
+.proficiency-bonus-section {
+    grid-column: 1 / 2;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+.proficiency-bonus-section h2 {
+    margin-top: 0;
+    color: #333;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.saving-throws-section {
+    grid-column: 1 / 2;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+}
+
+.saving-throws-section h2 {
+    margin-top: 0;
+    color: #333;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.saving-throws-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.saving-throws-section li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+    font-size: 0.95em;
+}
+
+.saving-throws-section input[type="checkbox"] {
+    margin-right: 10px;
+    transform: scale(1.2);
+}
+
+.save-value {
+    display: inline-block;
+    width: 30px;
+    text-align: center;
+    font-weight: bold;
+    border: 1px solid #ccc;
+    padding: 2px 5px;
+    margin-right: 10px;
+    border-radius: 3px;
+    background-color: #fff;
+}
+
+
+.skills-section {
+    grid-column: 2 / 3;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+}
+
+.skills-section h2 {
+    margin-top: 0;
+    color: #333;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.skills-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.skills-section li {
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    font-size: 0.95em;
+}
+
+.skills-section input[type="checkbox"] {
+    margin-right: 10px;
+    transform: scale(1.2);
+}
+
+.skill-value {
+    display: inline-block;
+    width: 30px;
+    text-align: center;
+    font-weight: bold;
+    border: 1px solid #ccc;
+    padding: 2px 5px;
+    margin-right: 10px;
+    border-radius: 3px;
+    background-color: #fff;
+}
+
+
+.features-section {
+    grid-column: 1 / 3;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 15px;
+}
+
+.features-section ul {
+    list-style: disc;
+    margin-left: 20px;
+    padding: 0;
+}
+
+.features-section li {
+    margin-bottom: 5px;
+}
+
+/* Стили для секций снаряжения и заклинаний */
+.equipment-section,
+.spells-section {
+    grid-column: span 1; /* Занимают по одной колонке в ряду */
+    display: flex;
+    flex-direction: column;
+}
+
+.equipment-section h2,
+.spells-section h2 {
+    margin-top: 0;
+    color: #333;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.equipment-item,
+.spell-item {
+    background-color: #fff;
+    border: 1px solid #eee;
+    padding: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-wrap: wrap; /* Позволяет элементам переноситься на новую строку */
+    gap: 10px; /* Отступы между элементами формы */
+    align-items: center;
+    position: relative; /* Для кнопки удаления */
+}
+
+.equipment-item input,
+.spell-item input,
+.spell-item select,
+.equipment-item textarea,
+.spell-item textarea {
+    padding: 5px 8px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-family: 'Montserrat', sans-serif;
+    flex-grow: 1; /* Поля могут растягиваться */
+    min-width: 80px; /* Минимальная ширина полей */
+}
+
+.equipment-item .item-name,
+.spell-item .spell-name {
+    flex-basis: 150px; /* Большая ширина для имени */
+}
+
+.equipment-item .item-quantity {
+    width: 60px; /* Фиксированная ширина для количества */
+    text-align: center;
+}
+
+.equipment-item .item-description,
+.spell-item .spell-description {
+    flex-basis: 100%; /* Описание занимает всю строку */
+    min-height: 40px; /* Минимальная высота для textarea */
+    resize: vertical; /* Разрешить изменение размера только по вертикали */
+}
+
+.spell-item .spell-level {
+    width: 80px; /* Ширина для уровня заклинания */
+}
+
+.delete-btn {
+    background-color: #dc3545; /* Красный цвет */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 0.8em;
+    transition: background-color 0.2s;
+    margin-left: auto; /* Прижимает кнопку вправо */
+}
+
+.delete-btn:hover {
+    background-color: #c82333;
+}
+
+button {
+    background-color: #007bff; /* Синий цвет для кнопок */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 0.9em;
+    margin-top: 10px;
+    transition: background-color 0.2s;
+    align-self: flex-start; /* Выравнивание кнопки */
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Новые стили для секции карты */
+.map-section {
+    grid-column: 1 / 3; /* Занимает обе колонки */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Выравнивание по центру */
+}
+
+.map-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 15px;
+    align-items: center;
+}
+
+.map-controls label {
+    font-size: 0.9em;
+    color: #555;
+}
+
+.map-controls input[type="number"],
+.map-controls input[type="text"] {
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: 'Montserrat', sans-serif;
+    width: 120px;
+}
+
+.map-controls button {
+    margin-top: 0;
+}
+
+#battleMap {
+    border: 1px solid #333;
+    background-color: #e0e0e0;
+    cursor: grab;
+    touch-action: none; /* Для предотвращения прокрутки страницы при перетаскивании на мобильных устройствах */
+}
