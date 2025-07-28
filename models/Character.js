@@ -12,9 +12,10 @@ const SpellSchema = new mongoose.Schema({
     description: { type: String, default: '' }
 }, { _id: false });
 
+// Основная схема персонажа
 const CharacterSchema = new mongoose.Schema({
-    _id: String,
-    name: { type: String, default: 'Либериус' },
+    // Мы удалили строку _id: String, чтобы MongoDB генерировала его автоматически
+    name: { type: String, default: 'Новый персонаж' }, // Изменили имя по умолчанию
     
     strength: { type: Number, default: 10 },
     dexterity: { type: Number, default: 10 },
