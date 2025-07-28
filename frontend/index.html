@@ -10,6 +10,13 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+    <div class="character-manager">
+        <select id="characterSelector"></select>
+        <button id="loadCharacterBtn">Загрузить</button>
+        <button id="newCharacterBtn">Новый персонаж</button>
+        <button id="deleteCharacterBtn">Удалить</button>
+    </div>
+
     <div id="app" class="character-sheet">
         <header class="sheet-header">
             <div class="header-section">
@@ -170,15 +177,13 @@
 
             <section class="equipment-section">
                 <h2>Снаряжение</h2>
-                <div id="equipmentList">
-                </div>
+                <div id="equipmentList"></div>
                 <button id="addEquipmentBtn">Добавить снаряжение</button>
             </section>
 
             <section class="spells-section">
                 <h2>Заклинания</h2>
-                <div id="spellsList">
-                </div>
+                <div id="spellsList"></div>
                 <button id="addSpellBtn">Добавить заклинание</button>
             </section>
 
@@ -190,11 +195,37 @@
                     <label for="mapBackground">Фон карты (URL):</label>
                     <input type="text" id="mapBackground" placeholder="URL изображения">
                     <button id="loadMapBackground">Загрузить фон</button>
-                    <button id="resetMap">Сбросить карту</button>
+                    <button id="startCombatBtn">Начать бой</button>
                 </div>
+                
+                <div id="combatTrackerPanel" style="display: none;">
+                    <div class="initiative-list-header">
+                        <span>Имя</span>
+                        <span>Инициатива</span>
+                    </div>
+                    <ol id="initiativeTracker" class="initiative-list"></ol>
+                    <div class="add-npc-form">
+                        <input type="text" id="npcNameInput" placeholder="Имя NPC">
+                        <input type="number" id="npcInitiativeInput" placeholder="Инициатива">
+                        <button id="addNpcBtn">Добавить NPC</button>
+                    </div>
+                    <div class="combat-controls">
+                        <button id="nextTurnBtn">Следующий ход</button>
+                        <button id="endCombatBtn" class="delete-btn">Завершить бой</button>
+                    </div>
+                </div>
+
                 <canvas id="battleMap" width="800" height="600"></canvas>
             </section>
-
+            
+            <section class="event-log-section">
+                <h2>Лог событий</h2>
+                <div id="eventLogDisplay" class="log-display"></div>
+                <div class="log-input-area">
+                    <input type="text" id="eventLogInput" placeholder="Введите сообщение или бросок...">
+                    <button id="eventLogSendBtn">Отправить</button>
+                </div>
+            </section>
         </main>
     </div>
 
