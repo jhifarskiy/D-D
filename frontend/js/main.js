@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     // === КОНФИГУРАЦИЯ СЕТИ ===
-    const BACKEND_URL = 'http://localhost:8080';
+    const BACKEND_URL = ''; // Оставляем пустым, чтобы запросы шли на тот же домен
     let socket = io(BACKEND_URL);
 
     // --- ОБЪЯВЛЕНИЕ ПЕРЕМЕННЫХ ---
@@ -28,7 +28,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let hoveredCell = null;
     let animationFrameId = null;
     
-    // --- WebSocket Listeners ---
     socket.on('connect', () => {
         console.log('Successfully connected to WebSocket server with ID:', socket.id);
         socket.emit('map:get'); 
@@ -38,7 +37,6 @@ document.addEventListener('DOMContentLoaded', () => {
         drawMap();
     });
     
-    // --- ОСНОВНЫЕ ФУНКЦИИ ---
     function calculateModifier(score) { const modifier = Math.floor((score - 10) / 2); return modifier >= 0 ? `+${modifier}` : `${modifier}`; }
     function calculateSavingThrow(abilityScore, isProficient, proficiencyBonus) { let value = Math.floor((abilityScore - 10) / 2); if (isProficient) { value += proficiencyBonus; } return value >= 0 ? `+${value}` : `${value}`; }
     function calculateSkill(abilityScore, isProficient, proficiencyBonus) { let value = Math.floor((abilityScore - 10) / 2); if (isProficient) { value += proficiencyBonus; } return value >= 0 ? `+${value}` : `${value}`; }
@@ -47,14 +45,12 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderEquipment() { equipmentListDiv.innerHTML = ''; if (!currentCharacterData.equipment) currentCharacterData.equipment = []; currentCharacterData.equipment.forEach((item, index) => { const itemDiv = document.createElement('div'); itemDiv.classList.add('equipment-item'); itemDiv.innerHTML = `<label>Имя: <input type="text" class="item-name" value="${item.name || ''}" data-index="${index}" data-field="name"></label><label>Кол-во: <input type="number" class="item-quantity" value="${item.quantity || 1}" data-index="${index}" data-field="quantity"></label><label>Описание: <textarea class="item-description" data-index="${index}" data-field="description">${item.description || ''}</textarea></label><button type="button" class="delete-btn" data-type="equipment" data-index="${index}">Удалить</button>`; equipmentListDiv.appendChild(itemDiv); }); }
     function renderSpells() { spellsListDiv.innerHTML = ''; if (!currentCharacterData.spells) currentCharacterData.spells = []; const spellLevels = ["Заговор", "1", "2", "3", "4", "5", "6", "7", "8", "9"]; currentCharacterData.spells.forEach((spell, index) => { const spellDiv = document.createElement('div'); spellDiv.classList.add('spell-item'); const levelOptions = spellLevels.map(level => `<option value="${level}" ${spell.level === level ? 'selected' : ''}>${level}</option>`).join(''); spellDiv.innerHTML = `<label>Имя: <input type="text" class="spell-name" value="${spell.name || ''}" data-index="${index}" data-field="name"></label><label>Уровень: <select class="spell-level" data-index="${index}" data-field="level">${levelOptions}</select></label><label>Описание: <textarea class="spell-description" data-index="${index}" data-field="description">${spell.description || ''}</textarea></label><button type="button" class="delete-btn" data-type="spell" data-index="${index}">Удалить</button>`; spellsListDiv.appendChild(spellDiv); }); }
     
-    // --- ОБРАБОТЧИКИ СОБЫТИЙ ---
     equipmentListDiv.addEventListener('change', (event) => { if (event.target.matches('input, textarea')) { const idx = parseInt(event.target.dataset.index); const field = event.target.dataset.field; currentCharacterData.equipment[idx][field] = field === 'quantity' ? parseInt(event.target.value) : event.target.value; saveCharacterData(); } });
     spellsListDiv.addEventListener('change', (event) => { if (event.target.matches('input, textarea, select')) { const idx = parseInt(event.target.dataset.index); const field = event.target.dataset.field; currentCharacterData.spells[idx][field] = event.target.value; saveCharacterData(); } });
     addEquipmentBtn.addEventListener('click', () => { if (!currentCharacterData.equipment) currentCharacterData.equipment = []; currentCharacterData.equipment.push({ name: '', quantity: 1, description: '' }); renderEquipment(); saveCharacterData(); });
     addSpellBtn.addEventListener('click', () => { if (!currentCharacterData.spells) currentCharacterData.spells = []; currentCharacterData.spells.push({ name: '', level: 'Заговор', description: '' }); renderSpells(); saveCharacterData(); });
     document.addEventListener('click', (event) => { if (event.target.classList.contains('delete-btn')) { const type = event.target.dataset.type; const index = parseInt(event.target.dataset.index); if (type === 'equipment') { currentCharacterData.equipment.splice(index, 1); renderEquipment(); } else if (type === 'spell') { currentCharacterData.spells.splice(index, 1); renderSpells(); } saveCharacterData(); } });
 
-    // --- ЛОГИКА КАРТЫ ---
     function drawMap() {
         ctx.clearRect(0, 0, battleMapCanvas.width, battleMapCanvas.height);
         if (mapData.backgroundImage) { ctx.drawImage(mapData.backgroundImage, 0, 0, battleMapCanvas.width, battleMapCanvas.height); } else { ctx.fillStyle = '#e0e0e0'; ctx.fillRect(0, 0, battleMapCanvas.width, battleMapCanvas.height); }
@@ -85,23 +81,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     function loadMapBackground(url) {
-        if (!url) {
-            mapData.backgroundImage = null; mapData.backgroundUrl = '';
-            drawMap(); saveMapData();
-            return;
-        }
+        if (!url) { mapData.backgroundImage = null; mapData.backgroundUrl = ''; drawMap(); saveMapData(); return; }
         const img = new Image();
         img.crossOrigin = "Anonymous";
-        img.onload = () => {
-            mapData.backgroundImage = img; mapData.backgroundUrl = url;
-            drawMap(); saveMapData();
-        };
-        img.onerror = () => {
-            alert('Не удалось загрузить фон. Проверьте URL и CORS-политику изображения.');
-            mapData.backgroundImage = null; mapData.backgroundUrl = '';
-            mapBackgroundInput.value = '';
-            drawMap(); saveMapData();
-        };
+        img.onload = () => { mapData.backgroundImage = img; mapData.backgroundUrl = url; drawMap(); saveMapData(); };
+        img.onerror = () => { alert('Не удалось загрузить фон. Проверьте URL и CORS-политику изображения.'); mapData.backgroundImage = null; mapData.backgroundUrl = ''; mapBackgroundInput.value = ''; drawMap(); saveMapData(); };
         img.src = url;
     }
     
@@ -111,16 +95,13 @@ document.addEventListener('DOMContentLoaded', () => {
     battleMapCanvas.addEventListener('mouseleave', () => { hoveredCell = null; drawMap(); });
     battleMapCanvas.addEventListener('click', (e) => { const rect = battleMapCanvas.getBoundingClientRect(); const clickX = e.clientX - rect.left; const clickY = e.clientY - rect.top; const clickedChar = mapData.characters.find(char => { const distance = Math.sqrt(Math.pow(clickX - char.mapX, 2) + Math.pow(clickY - char.mapY, 2)); return distance <= mapData.gridSize / 3; }); if (clickedChar && clickedChar._id === currentCharacterData._id) { selectedCharacterForMove = selectedCharacterForMove === clickedChar._id ? null : clickedChar._id; drawMap(); } else if (selectedCharacterForMove) { const charToMove = mapData.characters.find(c => c._id === selectedCharacterForMove); if (charToMove) { if (animationFrameId) cancelAnimationFrame(animationFrameId); const targetX = hoveredCell.x + mapData.gridSize / 2; const targetY = hoveredCell.y + mapData.gridSize / 2; animateMovement(charToMove, targetX, targetY); } selectedCharacterForMove = null; } });
     
-    // --- ЗАГРУЗКА И СОХРАНЕНИЕ ДАННЫХ ---
     async function loadCharacterData() { try { const response = await fetch(`${BACKEND_URL}/api/character`); if (!response.ok) throw new Error('Failed to load character'); currentCharacterData = await response.json(); characterNameInput.value = currentCharacterData.name; proficiencyBonusInput.value = currentCharacterData.proficiencyBonus; Object.keys(abilityScoreInputs).forEach(key => { abilityScoreInputs[key].value = currentCharacterData[key]; }); Object.keys(savingThrowCheckboxes).forEach(key => { savingThrowCheckboxes[key].checked = currentCharacterData[`${key}SaveProficient`]; }); Object.keys(skillsConfig).forEach(key => { skillsConfig[key].proficientCheckbox.checked = currentCharacterData[`${key}Proficient`]; }); renderEquipment(); renderSpells(); updateDerivedValues(); socket.emit('character:join', currentCharacterData); } catch (error) { console.error(error); } }
     async function saveCharacterData() { 
-        // Собираем данные с формы
         currentCharacterData.name = characterNameInput.value; 
         currentCharacterData.proficiencyBonus = parseInt(proficiencyBonusInput.value); 
         Object.keys(abilityScoreInputs).forEach(key => { currentCharacterData[key] = parseInt(abilityScoreInputs[key].value); }); 
         Object.keys(savingThrowCheckboxes).forEach(key => { currentCharacterData[`${key}SaveProficient`] = savingThrowCheckboxes[key].checked; }); 
         Object.keys(skillsConfig).forEach(key => { currentCharacterData[`${key}Proficient`] = skillsConfig[key].proficientCheckbox.checked; }); 
-        // Отправляем на сервер
         try { 
             await fetch(`${BACKEND_URL}/api/character`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(currentCharacterData) }); 
             socket.emit('character:move', { _id: currentCharacterData._id, name: currentCharacterData.name, mapX: currentCharacterData.mapX, mapY: currentCharacterData.mapY }); 
@@ -129,7 +110,6 @@ document.addEventListener('DOMContentLoaded', () => {
     async function loadMapData() { try { const response = await fetch(`${BACKEND_URL}/api/map`); if (!response.ok) throw new Error('Failed to load map'); const data = await response.json(); mapData.gridSize = data.gridSize; gridSizeInput.value = data.gridSize; if(data.backgroundUrl) { mapBackgroundInput.value = data.backgroundUrl; loadMapBackground(data.backgroundUrl); } } catch (error) { console.error(error); } }
     async function saveMapData() { try { await fetch(`${BACKEND_URL}/api/map`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ gridSize: mapData.gridSize, backgroundUrl: mapData.backgroundUrl }) }); } catch (error) { console.error('Failed to save map data:', error); } }
 
-    // --- ИНИЦИАЛИЗАЦИЯ ---
     document.querySelectorAll('input, select').forEach(element => {
         element.addEventListener('change', saveCharacterData);
     });
